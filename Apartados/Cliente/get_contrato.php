@@ -39,13 +39,13 @@ include('../../Conexion/conexion.php');
     <div class="wrapper">
         <!-- Navbar -->
         <div id="nav-bar">
-        <?php include '../1.ContenidoEstatico/NavBar.php' ?>
+            <?php include '../1.ContenidoEstatico/NavBar.php' ?>
         </div>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <div id="sliceBar">
-        <?php include '../1.ContenidoEstatico/Slicebar.php'  ?>
+            <?php include '../1.ContenidoEstatico/Slicebar.php'  ?>
         </div>
 
         <!-- Content Wrapper. Contains page content -->
@@ -119,11 +119,14 @@ include('../../Conexion/conexion.php');
                                                                 <div class="input-group-text" style="background-color:red">Folio:
                                                                 </div>
                                                                 <?php
-                                                                  $sql = ("SELECT * FROM contrato ORDER by Folio DESC LIMIT 1");
-                                                                  $query = $conn->query($sql);
-                                                                  $valores = mysqli_fetch_array($query)                                                                                        
-                                                                ?>                      
-                                                                <input type="text" class="form-control" name="folio" id="folio" value="<?php echo $valor=$valores["Folio"]+1;?>" disabled >
+                                                                $sql = ("SELECT * FROM contrato ORDER by Folio DESC LIMIT 1");
+                                                                $query = $conn->query($sql);
+                                                                $valores = mysqli_fetch_array($query)
+                                                                ?>
+                                                                <input type="text" class="form-control" name="folio" id="folio" value="<?php if ($valores["Folio"] == NULL) {
+                                                                                                                                            echo 1;
+                                                                                                                                        } else
+                                                                                                                                            echo $valor = $valores["Folio"] + 1; ?>" disabled>
                                                             </div>
                                                         </div>
 
@@ -157,11 +160,10 @@ include('../../Conexion/conexion.php');
                                                                     // foreach ($vendedores as $key => $value) {
                                                                     //     echo '<option  value="'.$value["Rut"].'">'.$value["Nombre"].' </option>';
                                                                     //     }
-                                                                     while ($valores = mysqli_fetch_assoc($query)) {
+                                                                    while ($valores = mysqli_fetch_assoc($query)) {
                                                                         echo '<option value="' . $valores['Rut'] . '">' . $valores['Nombre'] . '</option>';
-                                                                       
                                                                     }
-                                                                    
+
                                                                     ?>
                                                                 </select>
                                                             </div>
@@ -226,7 +228,7 @@ include('../../Conexion/conexion.php');
                                                             <div class="input-group-prepend">
                                                                 <div class="input-group-text"><i class="fas fa-user"></i>
                                                                 </div>
-                                                                <input type="text" class="form-control" name="address" id="address" placeholder="Nombre y Apellido...">
+                                                                <input type="text" class="form-control" name="Pcontacto" id="Pcontacto" placeholder="Nombre y Apellido...">
                                                             </div>
                                                         </div>
 
@@ -301,10 +303,10 @@ include('../../Conexion/conexion.php');
                                                                 <div class="form-row">
                                                                     <div id="productos" class="item2">
                                                                         <?php require_once("InputDinamico.php") ?>
-                                                                        </div>
-                                                                        <input class="btn btn-success" type="button" name="agregar_registros" value="Agregar Mas" onClick="AgregarMas();" />
-                                                                        <input class="btn btn-danger" type="button" name="borrar_registros" value="Borrar Campos" onClick="BorrarRegistro();" />
-                                                                    </div>  
+                                                                    </div>
+                                                                    <input class="btn btn-success" type="button" name="agregar_registros" value="Agregar Mas" onClick="AgregarMas();" />
+                                                                    <input class="btn btn-danger" type="button" name="borrar_registros" value="Borrar Campos" onClick="BorrarRegistro();" />
+                                                                </div>
                                                             </div>
 
                                                             <div class="form-row">
@@ -331,68 +333,68 @@ include('../../Conexion/conexion.php');
                                                         Detalle de Equipos Encontrados Según el Contrato de Mantención</h4>
 
                                                     <br>
-                                                    
 
-                                                    <div id="seccion" >
-    
-  
-                                                                </div>
 
-                                                                
-                                                                <!-- modal -->
-                                                                <div class="modal fade" id="FichaProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                            <div class="modal-dialog modal-lg" role="document">
+                                                    <div id="seccion">
+
+
+                                                    </div>
+
+
+                                                    <!-- modal -->
+                                                    <div class="modal fade" id="FichaProductos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header" style="background-color:#3f668d">
-                                                                <h5 class="modal-title" style="color:white" id="exampleModalLabel">Area 1</h5>
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
+                                                                    <h5 class="modal-title" style="color:white" id="exampleModalLabel">Area 1</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="POST" action="#">
-                                                                    <h4 style="font-size:20px;font-weight:bold;margin:auto;margin-bottom:4px;border-bottom-style: solid;border-bottom-color: #00c0ef;">
-                                                                    Datos del Cliente:</h4>
-                                                                    <div class="form-row item">
-                                                                    
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="inputTlf">Descripción del Producto</label>
-                                                                        <div class="input-group-prepend">
-                                                                        <div class="input-group-text"><i class="fas fa-mobile"></i>
-                                                                        </div>
-                                                                        <input type="text" class="form-control" name="descrip_prodp" id="descrip_prod" placeholder="911111111" value="5">
+                                                                    <form method="POST" action="#">
+                                                                        <h4 style="font-size:20px;font-weight:bold;margin:auto;margin-bottom:4px;border-bottom-style: solid;border-bottom-color: #00c0ef;">
+                                                                            Datos del Cliente:</h4>
+                                                                        <div class="form-row item">
+
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="inputTlf">Descripción del Producto</label>
+                                                                                <div class="input-group-prepend">
+                                                                                    <div class="input-group-text"><i class="fas fa-mobile"></i>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" name="descrip_prodp" id="descrip_prod" placeholder="911111111" value="5">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="form-group col-md-6">
+                                                                                <label for="inputActividad">Cantidad:</label>
+                                                                                <div class="input-group-prepend">
+                                                                                    <div class="input-group-text"><i class="fas fa-briefcase"></i>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" name="cant_prod" id="cant_prod" placeholder="Ingrese su actividad">
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
 
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="inputActividad">Cantidad:</label>
-                                                                        <div class="input-group-prepend">
-                                                                        <div class="input-group-text"><i class="fas fa-briefcase"></i>
-                                                                        </div>
-                                                                        <input type="text" class="form-control" name="cant_prod" id="cant_prod" placeholder="Ingrese su actividad">
-                                                                        </div>
-                                                                    </div>
-                                                                    </div>
-                                                                   
 
-                                                                    <div class="modal-footer">
-                                                                    <div class="input-group-btn">
-                                                                    <button type="button" class="btn btn-success btn-xs" onclick="cantidades();" style="margin-left: 10px;"> <i class="fas fa-plus"></i> </button>
-                                                                    </div>
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                                    </div>
-                                                                </form>
+                                                                        <div class="modal-footer">
+                                                                            <div class="input-group-btn">
+                                                                                <button type="button" class="btn btn-success btn-xs" onclick="cantidades();" style="margin-left: 10px;"> <i class="fas fa-plus"></i> </button>
+                                                                            </div>
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                        </div>
+                                                                    </form>
 
 
                                                                 </div>
 
                                                             </div>
-                                                            </div>
                                                         </div>
-  
-                                                    
+                                                    </div>
+
+
                                                     <button class="btn btn-primary mt-5" onclick="stepper1.previous()">Anterior</button>
-                                                    <a href="../Cliente/contrato.php"><button type="button" id="enviar" class="btn btn-primary mt-5">Registrar</button></a>
+                                                    <a><button type="button" id="enviar" class="btn btn-primary mt-5">Registrar</button></a>
                                                 </div>
                                             </form>
                                         </div>
@@ -506,246 +508,256 @@ include('../../Conexion/conexion.php');
         var stepper1Node = document.querySelector('#stepper1')
         var stepper1 = new Stepper(document.querySelector('#stepper1'))
 
-        
+
         stepper1Node.addEventListener('shown.bs-stepper', function(event) {
 
-        //    var id_cliente=localStorage.getItem('id_cliente');
-          
-            
-        //   $.post("get_instalacioneslist.php",{id_cliente: id_cliente
-        //   }, function(data){
-           
-        //     $("#TipIns").html(data);
-            
-               
-               
-        //   });
+            //    var id_cliente=localStorage.getItem('id_cliente');
+
+
+            //   $.post("get_instalacioneslist.php",{id_cliente: id_cliente
+            //   }, function(data){
+
+            //     $("#TipIns").html(data);
+
+
+
+            //   });
 
 
 
 
-            id_cliente=document.getElementById("RUT").value;
-          
-            $.post("get_instalaciones.php",{id_cliente: id_cliente
-          },function(data){
-            var datos1 = data
-          
-            localStorage.setItem("insta", datos1)
-              // console.log(datos1[0])
-               return datos1 ;
-              // alert(datos)
-          });
-          $.post("get_areas.php", function(data){
-            var datos = data
-            localStorage.setItem("areas", datos)
-            
-               //console.log(datos)
-              // alert(datos)
-          });
+            id_cliente = document.getElementById("RUT").value;
 
-          $.post("get_servicioslist.php", function(data){
-            var datos = data
-            localStorage.setItem("servicios", datos)
-            
-               //console.log(datos)
-              // alert(datos)
-          });
-          $.post("get_serviciosTlist.php", function(data){
-            var datos = data
-            localStorage.setItem("Tservicios", datos)
-            
-               //console.log(datos)
-              // alert(datos)
-          });
+            $.post("get_instalaciones.php", {
+                id_cliente: id_cliente
+            }, function(data) {
+                var datos1 = data
+
+                localStorage.setItem("insta", datos1)
+                // console.log(datos1[0])
+                return datos1;
+                // alert(datos)
+            });
+            $.post("get_areas.php", function(data) {
+                var datos = data
+                localStorage.setItem("areas", datos)
+
+                //console.log(datos)
+                // alert(datos)
+            });
+
+            $.post("get_servicioslist.php", function(data) {
+                var datos = data
+                localStorage.setItem("servicios", datos)
+
+                //console.log(datos)
+                // alert(datos)
+            });
+            $.post("get_serviciosTlist.php", function(data) {
+                var datos = data
+                localStorage.setItem("Tservicios", datos)
+
+                //console.log(datos)
+                // alert(datos)
+            });
 
             console.warn('shown.bs-stepper', event)
-            var titulos=new Array();
-var enlaces=new Array();
-var areas = new Array();
-//Datos de los submenús
+            var titulos = new Array();
+            var enlaces = new Array();
+            var areas = new Array();
+            //Datos de los submenús
 
-//arrays para guardar elementos de la lista y submenús:
-var menu=new Array()
-var submenu=new Array()
-    
-
-
-
-document.getElementById("seccion").innerHTML = ''
-
-
-
-    var dato= document.getElementsByClassName("item3");
-let html2 = Array.from(dato).map(item2 => {
-  
-  //let descrip1 = $(item2).find("#cantidad").val()
-   let instal = $(item2).find("#TipIns").val()
-  // console.log(descrip,cantp);
-  //console.log(descrip1);
-   return { instal}
-  //Literal strings `` para retornar html
-  
-});
-
-let html3 = Array.from(dato).map(item3 => {
-  let instal1 = $(item3).find("#TipIns").val()
-  let area = $(item3).find("#AreaCont").val()
-  let servicio = $(item3).find("#serv").val()
-  let tipoServ = $(item3).find("#tipo").val()
-  let date = $(item3).find("#date").val()
-  let periodo = $(item3).find("#periodo").val()
-  let cantidad = $(item3).find("#cantidad").val()
-  
-  // console.log(descrip,cantp);
-  //console.log(descrip1);
-   return { instal1,area,servicio,tipoServ,date,periodo,cantidad }
-  //Literal strings `` para retornar html
-  
-});
-
-let instt=localStorage.getItem('insta');
-let int = JSON.parse(instt)
-
-//console.log(int[0].id_instalacion)
-
-
-let bigCities = [];
-for (let i = 0; i < html2.length; i++) {
-    for (let j = 0; j < int.length; j++) {
-    if (int[j].id_instalacion == html2[i].instal) {
-        bigCities.push(int[j]);
-    }
-}
-
-}
-let areaaa=localStorage.getItem('areas');
-let servi=localStorage.getItem('servicios');
-let tServi=localStorage.getItem('Tservicios');
-let are = JSON.parse(areaaa)
-let serv = JSON.parse(servi)
-let tserv = JSON.parse(tServi)
-
-
-let bigAreas = [];
-for (let i = 0; i < html3.length; i++) {
-    for (let j = 0; j < are.length; j++) {
-    if (are[j].id_area == html3[i].area) {
-        bigAreas.push(are[j]);
-    }
-}
-
-}
-
-let bigAreas1 = [];
-for (let i = 0; i < html3.length; i++) {
-    for (let j = 0; j < serv.length; j++) {
-    if (serv[j].id == html3[i].tipoServ) {
-        bigAreas1.push(serv[j]);
-    }
-}
-
-}
-let bigAreas2 = [];
-for (let i = 0; i < html3.length; i++) {
-    for (let j = 0; j < tserv.length; j++) {
-    if (tserv[j].ID_lista == html3[i].servicio) {
-        bigAreas2.push(tserv[j]);
-    }
-}
-
-}
-
-
-
-const key = 'id_instalacion';
-
-const arrayUniqueByKey = [...new Map(bigCities.map(item =>
-  [item[key], item])).values()];
+            //arrays para guardar elementos de la lista y submenús:
+            var menu = new Array()
+            var submenu = new Array()
 
 
 
 
-
-console.log(bigCities);
-console.log(arrayUniqueByKey);
-console.log(html2);
+            document.getElementById("seccion").innerHTML = ''
 
 
-for (let i = 0; i < html3.length; i++) {
-    
-    for (let j = 0; j < bigAreas.length; j++) {
-    if (bigAreas[j].id_area == html3[i].area) {
-     
-        html3[i].nombre=bigAreas[j].NombreArea;
-        
-    }
-    if (bigAreas1[j].id == html3[i].tipoServ) {
-     
-     html3[i].serv=bigAreas1[j].Nombre;
-     
- }
- if (bigAreas2[j].ID_lista == html3[i].servicio) {
-     
-     html3[i].tserv=bigAreas2[j].Nombre;
-     
- }
-    
-}
 
-}
+            var dato = document.getElementsByClassName("item3");
+            let html2 = Array.from(dato).map(item2 => {
+
+                //let descrip1 = $(item2).find("#cantidad").val()
+                let instal = $(item2).find("#TipIns").val()
+                // console.log(descrip,cantp);
+                //console.log(descrip1);
+                return {
+                    instal
+                }
+                //Literal strings `` para retornar html
+
+            });
+
+            let html3 = Array.from(dato).map(item3 => {
+                let instal1 = $(item3).find("#TipIns").val()
+                let area = $(item3).find("#AreaCont").val()
+                let servicio = $(item3).find("#serv").val()
+                let tipoServ = $(item3).find("#tipo").val()
+                let date = $(item3).find("#date").val()
+                let periodo = $(item3).find("#periodo").val()
+                let cantidad = $(item3).find("#cantidad").val()
+
+                // console.log(descrip,cantp);
+                //console.log(descrip1);
+                return {
+                    instal1,
+                    area,
+                    servicio,
+                    tipoServ,
+                    date,
+                    periodo,
+                    cantidad
+                }
+                //Literal strings `` para retornar html
+
+            });
+
+            let instt = localStorage.getItem('insta');
+            let int = JSON.parse(instt)
+
+            //console.log(int[0].id_instalacion)
+
+
+            let bigCities = [];
+            for (let i = 0; i < html2.length; i++) {
+                for (let j = 0; j < int.length; j++) {
+                    if (int[j].id_instalacion == html2[i].instal) {
+                        bigCities.push(int[j]);
+                    }
+                }
+
+            }
+            let areaaa = localStorage.getItem('areas');
+            let servi = localStorage.getItem('servicios');
+            let tServi = localStorage.getItem('Tservicios');
+            let are = JSON.parse(areaaa)
+            let serv = JSON.parse(servi)
+            let tserv = JSON.parse(tServi)
+
+
+            let bigAreas = [];
+            for (let i = 0; i < html3.length; i++) {
+                for (let j = 0; j < are.length; j++) {
+                    if (are[j].id_area == html3[i].area) {
+                        bigAreas.push(are[j]);
+                    }
+                }
+
+            }
+
+            let bigAreas1 = [];
+            for (let i = 0; i < html3.length; i++) {
+                for (let j = 0; j < serv.length; j++) {
+                    if (serv[j].id == html3[i].tipoServ) {
+                        bigAreas1.push(serv[j]);
+                    }
+                }
+
+            }
+            let bigAreas2 = [];
+            for (let i = 0; i < html3.length; i++) {
+                for (let j = 0; j < tserv.length; j++) {
+                    if (tserv[j].ID_lista == html3[i].servicio) {
+                        bigAreas2.push(tserv[j]);
+                    }
+                }
+
+            }
+
+
+
+            const key = 'id_instalacion';
+
+            const arrayUniqueByKey = [...new Map(bigCities.map(item => [item[key], item])).values()];
 
 
 
 
 
+            console.log(bigCities);
+            console.log(arrayUniqueByKey);
+            console.log(html2);
+
+
+            for (let i = 0; i < html3.length; i++) {
+
+                for (let j = 0; j < bigAreas.length; j++) {
+                    if (bigAreas[j].id_area == html3[i].area) {
+
+                        html3[i].nombre = bigAreas[j].NombreArea;
+
+                    }
+                    if (bigAreas1[j].id == html3[i].tipoServ) {
+
+                        html3[i].serv = bigAreas1[j].Nombre;
+
+                    }
+                    if (bigAreas2[j].ID_lista == html3[i].servicio) {
+
+                        html3[i].tserv = bigAreas2[j].Nombre;
+
+                    }
+
+                }
+
+            }
 
 
 
 
-let totaleas=[]
-let areasss = [];
-
-for (let i = 0; i < arrayUniqueByKey.length; i++) {
-    let vacio=[];
-    for (let j = 0; j < html3.length; j++) {
-    if (arrayUniqueByKey[i].id_instalacion == html3[j].instal1) {
-        
-        vacio.push(html3[j]);
-        
-    }
-    
-}
-totaleas[i]=areasss.concat(vacio);
-}
-console.log(totaleas);
-console.log(html3); //vas a guardar este array 
-console.log(bigAreas)
-console.log(bigAreas1)
-console.log(bigAreas2)
-for (i=0;i<arrayUniqueByKey.length;i++) {
-     //localizar elementos principales
-     menu[i]=document.getElementById("seccion");
-     //crear elemento menu desplegable
-     menu[i].innerHTML+="<div id='subseccion"+i+"'><div class='accordion'><div class='card-header' id='heading"+i+"'><button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse"+i+"' aria-expanded='true' aria-controls='collapse"+i+"'>"+arrayUniqueByKey[i]['nombre']+"</button><div id='collapse"+i+"' class='collapse show' aria-labelledby='heading"+i+"' data-parent='#accordion'><div id='subseccions"+i+"'></div></div></div></div></div>"
-     //localizar elemento menu desplegable
-      submenu[i]=document.getElementById('subseccions'+i);
-    //  //escribir menu desplegable
-       for (j=0;j<totaleas[i].length;j++) {
 
 
-        submenu[i].innerHTML += "<table><tr><th scope='col'>Area</th><th scope='col'>Tipo servicio</th><th scope='col'>Lista de Servicio</th></tr><tr><th scope='row'>"+totaleas[i][j]['nombre']+"</th><td>"+totaleas[i][j]['tserv']+"</td><td>"+totaleas[i][j]['serv']+"</td></tr> </table>";
-          // submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos'>Productos</Button></p>";
-          }
-    //  //estilo de los submenús
-    //  menu[i].style.position="relative";
-    //  submenu[i].style.position="absolute";
-    //  submenu[i].style.top="100%";
-    //  submenu[i].style.left="0px";
-    //  submenu[i].style.backgroundColor="#41338b";
-    //  submenu[i].style.font="normal 0.8em arial";
-    //  submenu[i].style.padding="0.2em 0.5em";
-    //  submenu[i].style.display="none"
-      }	
+
+
+
+            let totaleas = []
+            let areasss = [];
+
+            for (let i = 0; i < arrayUniqueByKey.length; i++) {
+                let vacio = [];
+                for (let j = 0; j < html3.length; j++) {
+                    if (arrayUniqueByKey[i].id_instalacion == html3[j].instal1) {
+
+                        vacio.push(html3[j]);
+
+                    }
+
+                }
+                totaleas[i] = areasss.concat(vacio);
+            }
+            console.log(totaleas);
+            console.log(html3); //vas a guardar este array 
+            console.log(bigAreas)
+            console.log(bigAreas1)
+            console.log(bigAreas2)
+            for (i = 0; i < arrayUniqueByKey.length; i++) {
+                //localizar elementos principales
+                menu[i] = document.getElementById("seccion");
+                //crear elemento menu desplegable
+                menu[i].innerHTML += "<div id='subseccion" + i + "'><div class='accordion'><div class='card-header' id='heading" + i + "'><button class='btn  accordion-header' data-toggle='collapse' data-target='#collapse" + i + "' aria-expanded='true' aria-controls='collapse" + i + "'>" + arrayUniqueByKey[i]['nombre'] + "</button><div id='collapse" + i + "' class='collapse show' aria-labelledby='heading" + i + "' data-parent='#accordion'><div id='subseccions" + i + "'></div></div></div></div></div>"
+                //localizar elemento menu desplegable
+                submenu[i] = document.getElementById('subseccions' + i);
+                //  //escribir menu desplegable
+                for (j = 0; j < totaleas[i].length; j++) {
+
+
+                    submenu[i].innerHTML += "<table><tr><th scope='col'>Area</th><th scope='col'>Tipo servicio</th><th scope='col'>Lista de Servicio</th></tr><tr><th scope='row'>" + totaleas[i][j]['nombre'] + "</th><td>" + totaleas[i][j]['tserv'] + "</td><td>" + totaleas[i][j]['serv'] + "</td></tr> </table>";
+                    // submenu[i].innerHTML += "<p><a >"+totaleas[i][j]['nombre']+"</a> <Button style='margin-left: 5%;' type='button' class='btn btn-primary' data-toggle='modal' data-target='#FichaProductos'>Productos</Button></p>";
+                }
+                //  //estilo de los submenús
+                //  menu[i].style.position="relative";
+                //  submenu[i].style.position="absolute";
+                //  submenu[i].style.top="100%";
+                //  submenu[i].style.left="0px";
+                //  submenu[i].style.backgroundColor="#41338b";
+                //  submenu[i].style.font="normal 0.8em arial";
+                //  submenu[i].style.padding="0.2em 0.5em";
+                //  submenu[i].style.display="none"
+            }
 
 
 
@@ -755,91 +767,97 @@ for (i=0;i<arrayUniqueByKey.length;i++) {
         })
 
         function cantidades() {
-	
-      
-        
+
+
+
             //var i2=index
-            var dato= document.getElementsByClassName("item");
-              
+            var dato = document.getElementsByClassName("item");
+
             let html = Array.from(dato).map(item => {
-        console.log(item);
-        let descrip = $(item).find("#descrip_prod").val()
-        let cantp = $(item).find("#cant_prod").val()
-        console.log(descrip,cantp);
-        return { descrip, cantp}
-        //Literal strings `` para retornar html
-        
-    });
-    var dato= document.getElementsByClassName("item3");
-    var dato1= document.getElementsByName("TipIns[]").value;
-    console.log(dato1)
-    let html2 = Array.from(dato).map(item2 => {
-        console.log(item2);
-        let descrip1 = $(item2).find("#cantidad").val()
-         let instal = $(item2).find("#TipIns").val()
-        // console.log(descrip,cantp);
-        console.log(descrip1);
-         return { descrip1, instal}
-        //Literal strings `` para retornar html
-        
-    });
-    setTimeout(()=>{
-        alert(html[0]['cantp'])
-        console.log(html2)
-        alert(html2)     
-    },1000);
+                console.log(item);
+                let descrip = $(item).find("#descrip_prod").val()
+                let cantp = $(item).find("#cant_prod").val()
+                console.log(descrip, cantp);
+                return {
+                    descrip,
+                    cantp
+                }
+                //Literal strings `` para retornar html
 
-}
+            });
+            var dato = document.getElementsByClassName("item3");
+            var dato1 = document.getElementsByName("TipIns[]").value;
+            console.log(dato1)
+            let html2 = Array.from(dato).map(item2 => {
+                console.log(item2);
+                let descrip1 = $(item2).find("#cantidad").val()
+                let instal = $(item2).find("#TipIns").val()
+                // console.log(descrip,cantp);
+                console.log(descrip1);
+                return {
+                    descrip1,
+                    instal
+                }
+                //Literal strings `` para retornar html
 
-function AgregarMas() {
-	$("<div>").load("InputDinamico.php", function() {
-			$("#productos").append($(this).html());
-	});	
+            });
+            setTimeout(() => {
+                alert(html[0]['cantp'])
+                console.log(html2)
+                alert(html2)
+            }, 1000);
 
- 
-    setTimeout(()=>{
-        $('div.lista-producto').each(function(index, item){
-        var i=index
-       
-        $('li.list-group-item').each(function(index, item){
+        }
 
-    //         var id_cliente= document.getElementById("RUT").value
-    // $.post("get_instalacioneslist.php", { id_cliente: id_cliente }, function(data){
-    //             document.getElementsByName('TipIns[]')[i2].innerHTML=data;
-    //         });
+        function AgregarMas() {
+            $("<div>").load("InputDinamico.php", function() {
+                $("#productos").append($(this).html());
+            });
 
 
-            var i2=index
-            var dato= document.getElementsByName('pro_cantidad[]')[i2].value;
-               
-               
-                 document.getElementsByName('listservicio[]')[i2].onchange = function(e) {
-    option = this.value;
-    
-    $.post("get_servicios.php", { elegido: option }, function(data){
-                document.getElementsByName('listservicioV[]')[i2].innerHTML=data;
-            });  
+            setTimeout(() => {
+                $('div.lista-producto').each(function(index, item) {
+                    var i = index
 
-}
-                 
-        });
+                    $('li.list-group-item').each(function(index, item) {
 
-	});
-    },100);
-}
-
-function BorrarRegistro() {
-    $('div.lista-producto').each(function(index, item){
-		jQuery(':checkbox', this).each(function () {
-            if ($(this).is(':checked')) {
-				$(item).remove();
-            }
-        });
-	});
-    
-}
+                        //         var id_cliente= document.getElementById("RUT").value
+                        // $.post("get_instalacioneslist.php", { id_cliente: id_cliente }, function(data){
+                        //             document.getElementsByName('TipIns[]')[i2].innerHTML=data;
+                        //         });
 
 
+                        var i2 = index
+                        var dato = document.getElementsByName('pro_cantidad[]')[i2].value;
+
+
+                        document.getElementsByName('listservicio[]')[i2].onchange = function(e) {
+                            option = this.value;
+
+                            $.post("get_servicios.php", {
+                                elegido: option
+                            }, function(data) {
+                                document.getElementsByName('listservicioV[]')[i2].innerHTML = data;
+                            });
+
+                        }
+
+                    });
+
+                });
+            }, 100);
+        }
+
+        function BorrarRegistro() {
+            $('div.lista-producto').each(function(index, item) {
+                jQuery(':checkbox', this).each(function() {
+                    if ($(this).is(':checked')) {
+                        $(item).remove();
+                    }
+                });
+            });
+
+        }
     </script>
 </body>
 
@@ -857,5 +875,5 @@ function BorrarRegistro() {
         <th scope="row">TR-7</th>
         <td>7</td>
         <td>4,569</td>
-    </tr> 
+    </tr>
 </table>
